@@ -1,6 +1,7 @@
 -- Minimal stand-ins for what Supabase provides, so the schema runs on plain Postgres.
 do $$ begin create role authenticated nologin; exception when duplicate_object then null; end $$;
 do $$ begin create role anon nologin; exception when duplicate_object then null; end $$;
+do $$ begin create role service_role nologin; exception when duplicate_object then null; end $$;
 create schema auth;
 create table auth.users (id uuid primary key, email text unique, aud text, role text, created_at timestamptz, updated_at timestamptz);
 create or replace function auth.uid() returns uuid language sql stable as

@@ -6,8 +6,10 @@ import type { Backend, ExpenseInput, Snapshot, Profile } from './types.ts'
 import { AppError } from './types.ts'
 
 export function createSupabaseBackend(url: string, key: string): Backend {
-  const sb: SupabaseClient = createClient(url, key, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
+  // The app lives in its own "receipts" schema inside the shared Personal Projects project.
+  const sb: SupabaseClient<any, 'receipts'> = createClient(url, key, {
+    db: { schema: 'receipts' },
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false, storageKey: 'receipts-auth' },
   })
 
   const call = async <T>(fn: string, args: Record<string, unknown>): Promise<T> => {
