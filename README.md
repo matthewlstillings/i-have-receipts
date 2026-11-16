@@ -61,9 +61,8 @@ npm run build      # type-checks, then builds to dist/
 
 - **Text messages:** post-MVP. The tables stay, but nothing is queued or sent.
 - **Managing people in the app (G3, G4):** Phase 2. Use step 6 above.
-- **Avatars:** initials for now. The riso portraits come later (`profiles.avatar_path` takes an image URL).
+- **Avatars:** everyone gets the riso default avatar (solid figure, hunter) until their portrait is added (`profiles.avatar_path` takes an image URL).
 - **Receipts (photos):** Phase 2.
-- **App icon:** the "R" is a placeholder until the real one is drawn.
 
 ## Where things are
 
