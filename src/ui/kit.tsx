@@ -123,7 +123,7 @@ export function TabBar({ active }: { active: string }) {
 export function Rail({ active }: { active: string }) {
   return (
     <nav className="rail" aria-label="Main">
-      <span className="mark" role="img" aria-label="Receipts">R</span>
+      <img className="mark" src="/icon.svg" alt="Receipts" width={44} height={44} />
       {TABS.map(([k, n]) => (
         <Link key={k} to={`/${k}`} className={`rtab${active === k ? ' on' : ''}`} aria-current={active === k ? 'page' : undefined}>
           <Ph name={k} size={24} ink={active === k ? 'var(--corn)' : undefined} op={1} /><b>{n}</b>

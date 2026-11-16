@@ -425,3 +425,4 @@ button.row{text-align:left}
 /* No portrait yet: the riso default avatar (solid figure, hunter). Turned-off accounts print grey. */
 .av{overflow:hidden}
 .av.off img{filter:grayscale(1);opacity:.6}
+.rail img.mark{background:none;box-shadow:none;border-radius:4px;display:block}
