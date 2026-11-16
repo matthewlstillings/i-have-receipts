@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['apple-touch-icon.png'],
+      includeAssets: ['apple-touch-icon.png', 'avatar-default.svg'],
       manifest: {
         name: 'I Have Receipts',
         short_name: 'Receipts',

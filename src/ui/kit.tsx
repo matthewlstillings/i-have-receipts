@@ -4,7 +4,6 @@ import { useEffect, useRef, type CSSProperties, type ReactNode, type MouseEvent 
 import { Link } from 'react-router-dom'
 import { PH, BOLD, STROKE, CAT_INK } from './iconData.ts'
 import type { Profile } from '../data/types.ts'
-import { initials } from '../data/logic.ts'
 import { useLayout } from './layout.ts'
 
 // ---------------------------------------------------------------- icons
@@ -44,8 +43,8 @@ export function Av({ p, size = 40, off }: { p?: Profile; size?: 28 | 32 | 40 | 5
   const isOff = off ?? p?.status === 'off'
   const url = p?.avatar_path && /^https?:/.test(p.avatar_path) ? p.avatar_path : null
   return (
-    <span className={`av ini s${size}${isOff ? ' off' : ''}`} aria-hidden="true">
-      {url ? <img src={url} alt="" /> : initials(p?.display_name ?? '?')}
+    <span className={`av s${size}${isOff ? ' off' : ''}`} aria-hidden="true" title={p?.display_name}>
+      <img src={url ?? '/avatar-default.svg'} alt="" />
     </span>
   )
 }
