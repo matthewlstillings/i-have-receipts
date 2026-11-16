@@ -7,14 +7,15 @@ insert into auth.users values
  ('00000000-0000-0000-0000-00000000000c','priya@x.com'),
  ('00000000-0000-0000-0000-00000000000d','sam@x.com'),
  ('00000000-0000-0000-0000-00000000000e','out@x.com');
-insert into profiles (id, display_name, phone, is_admin) values
+insert into core.people (id, display_name, phone, is_owner) values
  ('00000000-0000-0000-0000-00000000000a','Matthew L.','+12125550101', true),
  ('00000000-0000-0000-0000-00000000000b','Rio M.','+12125550102', false),
  ('00000000-0000-0000-0000-00000000000c','Priya L.','+12125550103', false),
  ('00000000-0000-0000-0000-00000000000d','Sam T.','+12125550104', false),
  ('00000000-0000-0000-0000-00000000000e','Out S.','+12125550105', false);
+insert into core.app_access (user_id, app_key) select id, 'receipts' from core.people;
 insert into profile_settings (user_id, sms_consent_at)
- select id, now() from profiles;
+ select id, now() from core.people;
 
 insert into groups (id, name, kind, created_by) values
  ('10000000-0000-0000-0000-000000000001','Supper Club','other','00000000-0000-0000-0000-00000000000a'),
@@ -110,7 +111,7 @@ reset role;
 select recipient_id, payload from sms_outbox order by recipient_id;
 
 \echo '--- 10. Turned-off account sees nothing'
-update profiles set status = 'off' where id = '00000000-0000-0000-0000-00000000000b';
+update core.people set status = 'off' where id = '00000000-0000-0000-0000-00000000000b';
 set role authenticated;
 select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-00000000000b', false);
 select count(*) as rio_sees_groups from groups;

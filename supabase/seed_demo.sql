@@ -1,5 +1,5 @@
 -- Fake beta data. Run in the Supabase SQL editor AFTER the migrations and
--- after you've added yourself with receipts_app.add_person(...).
+-- after you've added yourself with core.add_person(...).
 --
 --   select receipts_app.seed_demo();   -- adds 5 fake friends + 5 groups with expenses
 --   select receipts_app.wipe_demo();   -- deletes every group and the fake friends
@@ -23,7 +23,8 @@ begin
     insert into auth.users (id, email, aud, role, created_at, updated_at)
     values (v, e, 'authenticated', 'authenticated', now(), now());
   end if;
-  insert into profiles (id, display_name) values (v, p_name) on conflict (id) do nothing;
+  insert into core.people (id, display_name) values (v, p_name) on conflict (id) do nothing;
+  insert into core.app_access (user_id, app_key) values (v, 'receipts') on conflict do nothing;
   insert into profile_settings (user_id, welcomed_at) values (v, now()) on conflict do nothing;
   return v;
 end $$;
@@ -37,8 +38,9 @@ declare
   e uuid; everyone uuid[];
   d date := current_date;
 begin
-  select id into me from profiles where is_admin and status = 'active' order by created_at limit 1;
-  if me is null then raise exception 'Add yourself first: select receipts_app.add_person(''you@email.com'', ''Your N.'', true);'; end if;
+  select p.id into me from core.people p join core.app_access a on a.user_id = p.id and a.app_key = 'receipts' and a.revoked_at is null
+   where p.is_owner and p.status = 'active' order by p.created_at limit 1;
+  if me is null then raise exception 'Add yourself first: select core.add_person(''you@email.com'', ''Your N.'', array[''receipts''], true);'; end if;
   select array_agg(id) into real_people from profiles
    where status = 'active' and id <> me and id not in (select id from auth.users where email like '%@demo.invalid');
   real_people := coalesce(real_people, '{}');
@@ -108,7 +110,8 @@ begin
   delete from groups;
   get diagnostics n = row_count;
   delete from profile_settings where user_id in (select id from auth.users where email like '%@demo.invalid');
-  delete from profiles where id in (select id from auth.users where email like '%@demo.invalid');
+  delete from core.app_access where user_id in (select id from auth.users where email like '%@demo.invalid');
+  delete from core.people where id in (select id from auth.users where email like '%@demo.invalid');
   delete from auth.users where email like '%@demo.invalid';
   return 'Deleted ' || n || ' groups and the fake friends.';
 end $$;

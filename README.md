@@ -28,7 +28,8 @@ npm run build      # type-checks, then builds to dist/
 2. **Run the SQL** in the SQL editor, in this order:
    1. `supabase/migrations/0001_schema.sql`
    2. `supabase/migrations/0002_write_functions.sql`
-   3. `supabase/seed_demo.sql` (only defines the fake-data functions; it adds nothing yet)
+   3. `supabase/migrations/0003_core_people.sql` (shared people + per-app access, see below)
+   4. `supabase/seed_demo.sql` (only defines the fake-data functions; it adds nothing yet)
 3. **Turn on email codes** (Authentication → Sign In / Providers → Email):
    - Email provider on, "Confirm email" on.
    - **Turn off "Allow new users to sign up"**. Only Matthew adds people (no sign-up screen).
@@ -38,10 +39,24 @@ npm run build      # type-checks, then builds to dist/
 5. **Set up an email sender (SMTP).** Supabase's built-in sender only delivers to your own team's addresses, so friends would get no code. Use Resend, Postmark or similar (Authentication → Emails → SMTP Settings). It needs a domain you own.
 6. **Add people.** For each friend: Authentication → Users → Add user → their email (no password). Then in the SQL editor:
    ```sql
-   select app.add_person('you@example.com', 'Matthew L.', true);  -- you, as admin
-   select app.add_person('rio@example.com', 'Rio M.');
+   select core.add_person('you@example.com', 'Matthew L.', array['receipts'], true);  -- you (owner)
+   select core.add_person('rio@example.com', 'Rio M.', array['receipts']);
+   select core.grant_app('rio@example.com', 'project_b');   -- later, another app
+   select core.revoke_app('rio@example.com', 'receipts');   -- out of one app; history keeps the name
+   select core.set_status('rio@example.com', 'off');        -- out of every app
    ```
-7. **Fake beta data (optional):** `select app.seed_demo();` adds 5 fake friends and 5 groups that every real person is also in. When the beta is over: `select app.wipe_demo();` deletes **every** group and the fake friends.
+7. **Fake beta data (optional):** `select receipts_app.seed_demo();` adds 5 fake friends and 5 groups that every real person is also in. When the beta is over: `select receipts_app.wipe_demo();` deletes **every** Receipts group and the fake friends.
+
+## One login for every friends app
+
+Personal Projects hosts several small apps. They share one set of logins and one `core` schema:
+
+- `core.people`: one row per person (name, nickname, avatar, on/off), shared by every app.
+- `core.apps` and `core.app_access`: which apps each person may use.
+- Every app's rules start with `core.has_app('<app>')`, so a friend only sees data in the apps they were given.
+- Admin work happens only in the Supabase dashboard / SQL editor, which bypasses the rules. No app has an admin screen.
+- A new app: `insert into core.apps values ('project_b', 'Project B');`, give it its own schema, and start each policy with `core.has_app('project_b')`.
+- One sign-in across apps needs them on subdomains of one domain, with the Supabase session in a cookie on that parent domain.
 
 ## Deploy on Vercel
 
