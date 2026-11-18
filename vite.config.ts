@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'prompt',
       includeAssets: ['apple-touch-icon.png', 'avatar-default.svg', 'icon.svg', 'favicon-32.png'],
       manifest: {
-        name: 'I Have Receipts',
+        name: 'Keeping Receipts',
         short_name: 'Receipts',
-        description: 'Split costs with friends. Keep the receipts.',
+        description: 'People will lie, keep the receipts.',
         display: 'standalone',
         background_color: '#f5f0e8',
         theme_color: '#f5f0e8',
