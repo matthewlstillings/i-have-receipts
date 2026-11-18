@@ -18,7 +18,7 @@ export function Splash() {
   return (
     <div className="app splash">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 520 }}>
-        <Art />
+        <img className="logo" src="/icon.svg" alt="" width={112} height={112} />
         <span className="mis" style={{ font: '800 64px/68px var(--display)', color: 'var(--ink)' }} data-t="I Have Receipts">I Have Receipts</span>
         <p style={{ fontSize: 20, lineHeight: '30px', color: 'var(--ink)' }}>
           Receipts is made for phones and tablets. Scan the code to open it on your phone, or make this window narrower.
@@ -71,7 +71,7 @@ function EmailStep({ email, setEmail, onSent }: { email: string; setEmail: (s: s
     <Frame>
       <form onSubmit={submit} style={{ flex: 1, display: 'flex', flexDirection: 'column' }} noValidate>
         <div style={{ flex: 1.1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, textAlign: 'center' }}>
-          <Art /><span className="wm mis" data-t="I Have Receipts">I Have Receipts</span>
+          <img className="logo" src="/icon.svg" alt="" width={96} height={96} /><span className="wm mis" data-t="I Have Receipts">I Have Receipts</span>
           <p style={{ color: 'var(--ink)' }}>Split costs with friends. Keep the receipts.</p>
         </div>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 14, paddingBottom: 16 }}>

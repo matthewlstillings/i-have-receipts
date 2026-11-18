@@ -426,3 +426,6 @@ button.row{text-align:left}
 .av{overflow:hidden}
 .av.off img{filter:grayscale(1);opacity:.6}
 .rail img.mark{background:none;box-shadow:none;border-radius:4px;display:block}
+
+/* App logo on sign-in and splash (replaces the three-circle art) */
+.logo{display:block;flex:none;margin-bottom:8px}
