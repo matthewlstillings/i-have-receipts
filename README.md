@@ -4,7 +4,7 @@ A private expense splitter for one friend group. It records who owes whom and ne
 
 - **Stack:** Vite + React + TypeScript PWA, Supabase (Postgres, row-level security, email codes), hosted on Vercel.
 - **Design:** Overprint (risograph) design system. The styles in `src/styles/app.css` are copied from the approved screen canvas.
-- **Spec, screen map, data model, review log:** the "I Have Receipts — Build Plan" doc.
+- **Spec, screen map, data model, review log:** the "Keeping Receipts — Build Plan" doc.
 
 ## Two modes
 
