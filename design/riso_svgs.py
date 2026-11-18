@@ -1,4 +1,4 @@
-"""Riso app icon + default avatar options for I Have Receipts (Overprint)."""
+"""Riso app icon + default avatar options for Keeping Receipts (Overprint)."""
 import math, random, re
 R_PATH = open('/tmp/glyph_82.txt').read()
 D_PATH = open('/tmp/glyph_36.txt').read()
