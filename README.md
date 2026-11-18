@@ -1,4 +1,4 @@
-# I Have Receipts
+# Keeping Receipts
 
 A private expense splitter for one friend group. It records who owes whom and never moves money.
 

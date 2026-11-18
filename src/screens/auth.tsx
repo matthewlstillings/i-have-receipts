@@ -19,7 +19,7 @@ export function Splash() {
     <div className="app splash">
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 520 }}>
         <img className="logo" src="/icon.svg" alt="" width={112} height={112} />
-        <span className="mis" style={{ font: '800 64px/68px var(--display)', color: 'var(--ink)' }} data-t="I Have Receipts">I Have Receipts</span>
+        <span className="mis" style={{ font: '800 64px/68px var(--display)', color: 'var(--ink)' }} data-t="Keeping Receipts">Keeping Receipts</span>
         <p style={{ fontSize: 20, lineHeight: '30px', color: 'var(--ink)' }}>
           Receipts is made for phones and tablets. Scan the code to open it on your phone, or make this window narrower.
         </p>
@@ -71,8 +71,8 @@ function EmailStep({ email, setEmail, onSent }: { email: string; setEmail: (s: s
     <Frame>
       <form onSubmit={submit} style={{ flex: 1, display: 'flex', flexDirection: 'column' }} noValidate>
         <div style={{ flex: 1.1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, textAlign: 'center' }}>
-          <img className="logo" src="/icon.svg" alt="" width={96} height={96} /><span className="wm mis" data-t="I Have Receipts">I Have Receipts</span>
-          <p style={{ color: 'var(--ink)' }}>Split costs with friends. Keep the receipts.</p>
+          <img className="logo" src="/icon.svg" alt="" width={96} height={96} /><span className="wm mis" data-t="Keeping Receipts">Keeping Receipts</span>
+          <p style={{ color: 'var(--ink)' }}>People will lie, keep the receipts.</p>
         </div>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 14, paddingBottom: 16 }}>
           {DEMO && <p className="demo"><b>Demo mode.</b> Fake data, saved only in this browser. Any email and any 6 digits sign you in as Matthew.</p>}
